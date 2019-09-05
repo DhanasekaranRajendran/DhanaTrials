@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: local
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+redsky.url: https://redsky.target.com/v2/pdp/tcin/{productId}?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics
+---
+spring:
+  profiles: local
+  data:
+    mongodb:
+      uri: mongodb://localhost/productdb
+      database: productdb
+      host: localhost
+      port: 27017
