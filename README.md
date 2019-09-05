@@ -1,4 +1,4 @@
-#MyRetail REST API
+##MyRetail REST API
 
 MyRetail RESTful service provides the client application ability to:
 
@@ -8,8 +8,8 @@ MyRetail RESTful service provides the client application ability to:
     
     3. Delete Product info by Product Id
 
+
 ##Get Product Information:
------------------------
 
 ###Input: 
 The client application does a GET request at the path "myretail/products/{id}" for a product 
@@ -29,8 +29,7 @@ Appropriate error messages are provided after validating the data. More informat
 the below sections. The client application can use the message in the response to display the same to the user appropriately.
 
 
-##Update Product Price in the datastore:
--------------------------------------
+##Update Product Price in the DB:
 
 ###Input: 
 The user/client application can do a PUT request with input similar to the response received in GET and should be able
@@ -74,17 +73,17 @@ the below sections. The client application can use the message in the response t
 8. Swagger documentation explains the expected request and response for GET and PUT requests.
 
 ##Testing
--------
-The testcases are present in the folder 'src\test\java\myretail\controllers'. 
+
+The testcases are present in the folder 'src\test\groovy\'. 
 
 The test cases can be executed by running the command './gradlew test'
 
 ##Swagger UI:
-----------
+
 Swagger displays the following information for an API method by default. Please refer to images 'Default_GetProductInfo.png'
 and 'Default_PutRequest.png' to see how the default information for an API method looks like in Swagger.
 
-  1. Type of request(GET/PUT..) and the path of request
+  1. Type of request(GET/PUT/DELETE) and the path of request
   2. Status and format of the response
   3. Response Content Type
   4. Parameters list
@@ -96,90 +95,78 @@ The user can modify the values in the fields provided and can do "Try it out!" a
 More information about the API methods and the responses is provided below.
 
 ##API Requests and Responses
---------------------------
+
 ## PUT Request:
 
-Following PUT request will store information of productID:13860428 in NOSQL database
+Following PUT request will store information of productID:53536820 in NOSQL database
 
 ###Request:
 
-`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
-  ' 'http://localhost:8080/products/13860428'`
+`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "53536820", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} \ 
+  ' 'http://localhost:8080/products/53536820'`
   
 ###Response:
 
->Status code: 201
->{
->   "response": "success"
->}
+    {
+        "id": "53536820",
+        "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)",
+        "current_price": {
+            "value": 499.99,
+            "currency_code": "USD"
+        }
+    }
  
 * When productId in request url and body is different it will return 400 Bad Request
 
 ###Request:
 
-`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
-  ' 'http://localhost:8080/products/15117729'`
+`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":1011,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
+  ' 'http://localhost:8080/myretail/products/53536820'`
   
 ###Response:
 
->{
->   "timestamp": 1478668717076,
->   "status": 400,
->   "error": "Bad Request",
->   "exception": "myretail.exception.ProductMisMatchException",
->   "message": "ProductId in request header and body doesn't match.",
->   "path": "/products/15117729"
->}
+    {
+        "error": "Product id doesn't match with body and path variable"
+    }
+    
+* When a user tries to a new ProductID which is not present in DB, and if its a valid one from Redsky, then its inserted into DB.
+
+###Request:
+
+`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "54252241", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} ' 'http://localhost:8080/myretail/products/53536820'`
+  
+###Response:
+
+    {
+        "error": "Product id doesn't match with body and path variable"
+    }
+
  
 ## GET Request:
  
 ### Request:
  
- `curl -X GET --header 'Accept: application/json' 'http://localhost:8080/products/13860428'`
+ `curl -X GET --header 'Accept: application/json' 'http://localhost:8080/myretail/products/53536820'`
  
  ### Response:
  
- >{
- >  "productId": "13860428",
- >  "title": "The Big Lebowski (Blu-ray)",
- >  "current_price": {
- >    "value": "13.49",
- >    "currency_code": "USD"
- >  }
- >}
+    {
+        "id": "53536820",
+        "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)",
+        "current_price": {
+            "value": 429.99,
+            "currency_code": "USD"
+            }
+    }
  
  * When you give a productID that doesn't exist you will get 404 Product not found.
  
  ### Request:
  
- `curl -X GET --header 'Accept: application/json' 'http://localhost:8080/products/235345436'`
+ `curl -X GET --header 'Accept: application/json' 'http://localhost:8080/myretail/products/1011'`
  
  ### Response:
  
- >{
-   >"timestamp": 1478669015840,
-   >"status": 404,
-   >"error": "Not Found",
-   >"exception": "myretail.exception.ProductNotFoundException",
-   >"message": "Product not found",
-   >"path": "/products/235345436"
- >}
- 
- ##Swagger Screenshots for the RESTful API:
- ---------------------------------------
-
- ###Default GET Request Information in Swagger UI
- ---------------------------------
- ![Alt text](/Default_GetProductInfo.png?raw=true "Default GET Information")
-
- ###Sample GET Response  in Swagger UI
- --------------------------------------------
- ![Alt text](/Sample_GET_Success.png?raw=true "Sample GET Response")
-
- ###Default PUT Request Information in Swagger UI
- ---------------------------------------------
- ![Alt text](/Default_PutRequest.png?raw=true "Default POST Information")
-
- ###Sample PUT Response in Swagger UI
- ---------------------------------
- ![Alt text](/Sample_PUT_Success.png?raw=true "Sample POST Response")
+    {
+        "error": "Product not found in RedSky Service"
+    } 
