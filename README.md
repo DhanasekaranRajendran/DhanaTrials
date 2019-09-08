@@ -1,6 +1,6 @@
-##MyRetail REST API
+## MyRetail REST API
 
-MyRetail RESTful service provides the client application ability to:
+**MyRetail RESTful service provides the client application ability to:**
 
     1. Retrieve Product and Price information by Product Id
 
@@ -9,49 +9,48 @@ MyRetail RESTful service provides the client application ability to:
     3. Delete Product info by Product Id
 
 
-##Get Product Information:
+## Get Product Information:
 
-###Input: 
+### Input: 
 The client application does a GET request at the path "myretail/products/{id}" for a product 
 
-###Internal Working: 
+### Internal Working: 
 When the API receives the request, it sends a request to "redsky.target.com" and retrieves the 
 product information. The Product Name is extracted from redSky APi response and the price information is retrieved
 from Database. The product name is updated in the Pricing information and sent back to user as response.
 
-###Output: 
+### Output: 
 For a product with product id '13860428', the sample JSON output is as shown below
 
 {"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}}
 
-###Errors/Validations: 
+### Errors/Validations: 
 Appropriate error messages are provided after validating the data. More information is available in 
 the below sections. The client application can use the message in the response to display the same to the user appropriately.
 
 
-##Update Product Price in the DB:
+## Update Product Price in the DB:
 
-###Input: 
+### Input: 
 The user/client application can do a PUT request with input similar to the response received in GET and should be able
 to modify the price in the datastore. The request is done at the same path "/products/{id}"
 
-####Sample Input: 
+#### Sample Input: 
 JSON Body - {"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 15.67,"currency_code":"USD"}}
 
-###Internal Working: 
+### Internal Working: 
 When the API receives PUT request, it does some validations to see if the product is available. If it is, 
 it ensures that the id in the URL and the JSON body is similar and if that looks same, the price for the product is modified 
 in the data store.
 
-###Output: 
+### Output: 
 Success message is returned if the price modification is done.
 
-###Errors/Validations: 
+### Errors/Validations: 
 Appropriate error messages are provided after validating the data. More information is available in 
 the below sections. The client application can use the message in the response to display the same to the user appropriately.
 
-##Technologies Used
------------------
+## Technologies Used
 
 1. Spring Boot - https://projects.spring.io/spring-boot/
 2. MongoDB - https://www.mongodb.com/
@@ -59,8 +58,8 @@ the below sections. The client application can use the message in the response t
 4. Gradle - https://gradle.org
 5. Spock - http://spockframework.org/
 
-##Instructions to Setup
----------------------
+## Instructions to Setup
+
 1. Install MongoDB in your system - https://docs.mongodb.com/manual/installation/
 2. Install Gradle - https://gradle.org/gradle-download/
 3. Run MongoDB - Run 'mongod.exe' in order to start Mongodb 
@@ -72,16 +71,15 @@ the below sections. The client application can use the message in the response t
 `http://localhost:8080/swagger-ui.html`
 8. Swagger documentation explains the expected request and response for GET and PUT requests.
 
-##Testing
+## Testing
 
 The testcases are present in the folder 'src\test\groovy\'. 
 
 The test cases can be executed by running the command './gradlew test'
 
-##Swagger UI:
+## Swagger UI:
 
-Swagger displays the following information for an API method by default. Please refer to images 'Default_GetProductInfo.png'
-and 'Default_PutRequest.png' to see how the default information for an API method looks like in Swagger.
+Swagger displays the following information for an API method by default.
 
   1. Type of request(GET/PUT/DELETE) and the path of request
   2. Status and format of the response
@@ -89,23 +87,20 @@ and 'Default_PutRequest.png' to see how the default information for an API metho
   4. Parameters list
   5. Possible Failure Responses with HTTP code
 
-The user can modify the values in the fields provided and can do "Try it out!" at the bottom. Please refer to the images 
-'Sample_GET_Success.png' and 'Sample_PUT_Success.png' to see what a sample GET and PUT requests look like.
-
 More information about the API methods and the responses is provided below.
 
-##API Requests and Responses
+## API Requests and Responses
 
 ## PUT Request:
 
 Following PUT request will store information of productID:53536820 in NOSQL database
 
-###Request:
+### Request:
 
 `curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "53536820", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} \ 
   ' 'http://localhost:8080/products/53536820'`
   
-###Response:
+### Response:
 
     {
         "id": "53536820",
@@ -118,12 +113,12 @@ Following PUT request will store information of productID:53536820 in NOSQL data
  
 * When productId in request url and body is different it will return 400 Bad Request
 
-###Request:
+### Request:
 
 `curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":1011,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
   ' 'http://localhost:8080/myretail/products/53536820'`
   
-###Response:
+### Response:
 
     {
         "error": "Product id doesn't match with body and path variable"
@@ -131,11 +126,11 @@ Following PUT request will store information of productID:53536820 in NOSQL data
     
 * When a user tries to a new ProductID which is not present in DB, and if its a valid one from Redsky, then its inserted into DB.
 
-###Request:
+### Request:
 
 `curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "54252241", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} ' 'http://localhost:8080/myretail/products/53536820'`
   
-###Response:
+### Response:
 
     {
         "error": "Product id doesn't match with body and path variable"
