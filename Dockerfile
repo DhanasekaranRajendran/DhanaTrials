@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM gradle:4.3.0-jdk8-alpine
 VOLUME ["/tmp"]
 ADD build/libs/product-api-0.0.1-SNAPSHOT.jar /tmp/product-api-0.0.1-SNAPSHOT.jar
 RUN sh -c 'touch /tmp/product-api-0.0.1-SNAPSHOT.jar'
