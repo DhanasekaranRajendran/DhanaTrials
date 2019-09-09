@@ -25,9 +25,9 @@ public class ProductService {
 
     public ProductPrice getProductInfo(String productId) throws IOException {
         log.info("Retrieving product info from DB for id: {}", productId);
-        String productName = redSkyApiService.getProductNameById(productId);
         ProductPrice productPrice = productRepository.findById(productId)
                 .orElseThrow(() -> new PricingNotFoundException("Pricing not available for this product"));
+        String productName = redSkyApiService.getProductNameById(productId);
         productPrice.setProductName(productName);
         return productPrice;
     }

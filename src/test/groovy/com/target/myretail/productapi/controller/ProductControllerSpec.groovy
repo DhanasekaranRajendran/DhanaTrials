@@ -1,6 +1,6 @@
 package com.target.myretail.productapi.controller
 
-import com.target.myretail.productapi.exception.GlobalExceptionHandler
+import com.target.myretail.productapi.exception.GlobalProductExceptionHandler
 import com.target.myretail.productapi.exception.PricingNotFoundException
 import com.target.myretail.productapi.service.ProductService
 import com.target.myretail.productapi.domain.ProductPrice
@@ -27,7 +27,7 @@ class ProductControllerSpec extends Specification {
         mockProductService = Mock(ProductService)
         productController = new ProductController(mockProductService)
         mockMvc = MockMvcBuilders.standaloneSetup(productController)
-                .setControllerAdvice(new GlobalExceptionHandler())
+                .setControllerAdvice(new GlobalProductExceptionHandler())
                 .build()
     }
 

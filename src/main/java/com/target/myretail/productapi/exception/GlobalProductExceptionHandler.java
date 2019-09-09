@@ -19,7 +19,7 @@ import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class GlobalProductExceptionHandler {
 
     @ExceptionHandler(value = PricingNotFoundException.class)
     public ResponseEntity<ErrorMessage> errorHandler(PricingNotFoundException pEx){

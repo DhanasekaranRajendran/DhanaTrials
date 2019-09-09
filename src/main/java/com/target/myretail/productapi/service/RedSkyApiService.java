@@ -38,10 +38,6 @@ public class RedSkyApiService {
 
     public String getProductNameById(String productId) throws IOException {
         log.info("Calling RedSky API to get product name for ID: {}", productId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        Map<String, String> urlVariables = new HashMap<String, String>();
-        urlVariables.put("productId", productId);
         String productString = restTemplate.getForObject(redSkyUrl, String.class, productId);
         log.info("redsky response: {}", productString);
         return extractProductName(productString);

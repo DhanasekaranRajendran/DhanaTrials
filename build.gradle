@@ -53,11 +53,11 @@ dependencies {
 
 sourceSets {
     test {
-        java.srcDirs = ['src/test/groovy']
+        groovy.srcDirs = ['src/test/groovy']
     }
     integration {
-        java.srcDirs = ['src/test/groovy/intg']
-        resources.srcDirs = ['src/test/resources']
+        groovy.srcDirs = ['src/test/groovy/intg']
+        resources.srcDirs = ['src/it/resources']
         compileClasspath += main.output + test.output
         runtimeClasspath += main.output + test.output
     }
@@ -72,3 +72,5 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
     testClassesDirs = sourceSets.integration.output.classesDirs
     classpath = sourceSets.integration.runtimeClasspath
 }
+
+test.finalizedBy(integration)
