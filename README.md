@@ -98,7 +98,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
 ### Request:
 
 `curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "53536820", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} \ 
-  ' 'http://localhost:8080/products/53536820'`
+  ' 'http://localhost:8080/myretail/products/53536820'`
   
 ### Response:
 
