@@ -165,3 +165,24 @@ Following PUT request will store information of productID:53536820 in NOSQL data
     {
         "error": "Product not found in RedSky Service"
     } 
+    
+## DELETE Request:
+ 
+### Request:
+ 
+ `curl -X DELETE --header 'Accept: application/json' 'http://localhost:8080/myretail/products/53536820'`
+ 
+ ### Response:
+ 
+    Product record deleted successfully
+    
+ * When you give a productID that doesn't exist you will get 404 Product not found.
+### Request:
+ 
+ `curl -X DELETE --header 'Accept: application/json' 'http://localhost:8080/myretail/products/1234'`
+ 
+ ### Response:
+ 
+    {
+        "error": "Product info not available for the requested Product"
+    }
