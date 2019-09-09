@@ -97,7 +97,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
 
 ### Request:
 
-`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "53536820", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} \ 
+`curl -X PUT -u <user>:<password> --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "53536820", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} \ 
   ' 'http://localhost:8080/myretail/products/53536820'`
   
 ### Response:
@@ -115,7 +115,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
 
 ### Request:
 
-`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":1011,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
+`curl -X PUT -u <user>:<password> --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"id":1011,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}} \ 
   ' 'http://localhost:8080/myretail/products/53536820'`
   
 ### Response:
@@ -128,7 +128,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
 
 ### Request:
 
-`curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "54252241", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} ' 'http://localhost:8080/myretail/products/53536820'`
+`curl -X PUT -u <user>:<password> --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "id": "54252241", "productName": "Apple iPad 9.7-inch Wi-Fi Only (2018 Model, 6th Generation)", "current_price": { "value": 499.99, "currency_code": "USD" }} ' 'http://localhost:8080/myretail/products/53536820'`
   
 ### Response:
 
@@ -170,7 +170,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
  
 ### Request:
  
- `curl -X DELETE --header 'Accept: application/json' 'http://localhost:8080/myretail/products/53536820'`
+ `curl -X DELETE -u <user>:<password> --header 'Accept: application/json' 'http://localhost:8080/myretail/products/53536820'`
  
  ### Response:
  
@@ -179,7 +179,7 @@ Following PUT request will store information of productID:53536820 in NOSQL data
  * When you give a productID that doesn't exist you will get 404 Product not found.
 ### Request:
  
- `curl -X DELETE --header 'Accept: application/json' 'http://localhost:8080/myretail/products/1234'`
+ ` curl -X DELETE -u <user>:<password> --header 'Accept: application/json' 'http://localhost:8080/myretail/products/1234'`
  
  ### Response:
  
