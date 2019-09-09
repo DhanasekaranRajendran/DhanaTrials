@@ -79,7 +79,7 @@ The test cases can be executed by running the command './gradlew test'
 
 ## Swagger UI:
 
-Swagger displays the following information for an API method by default.
+Swagger displays the following information for an API method by default. URL: http://localhost:8080/swagger-ui.html#
 
   1. Type of request(GET/PUT/DELETE) and the path of request
   2. Status and format of the response
